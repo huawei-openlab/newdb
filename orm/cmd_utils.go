@@ -1,3 +1,17 @@
+// Copyright 2014 beego Author. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package orm
 
 import (
@@ -31,13 +45,14 @@ func getDbDropSQL(al *alias) (sqls []string) {
 func getColumnTyp(al *alias, fi *fieldInfo) (col string) {
 	T := al.DbBaser.DbTypes()
 	fieldType := fi.fieldType
+	fieldSize := fi.size
 
 checkColumn:
 	switch fieldType {
 	case TypeBooleanField:
 		col = T["bool"]
 	case TypeCharField:
-		col = fmt.Sprintf(T["string"], fi.size)
+		col = fmt.Sprintf(T["string"], fieldSize)
 	case TypeTextField:
 		col = T["string-text"]
 	case TypeDateField:
@@ -75,6 +90,7 @@ checkColumn:
 		}
 	case RelForeignKey, RelOneToOne:
 		fieldType = fi.relModelInfo.fields.pk.fieldType
+		fieldSize = fi.relModelInfo.fields.pk.size
 		goto checkColumn
 	}
 

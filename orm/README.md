@@ -1,11 +1,18 @@
-# newdb orm fork from beego orm
+# beego orm
+
+[![Build Status](https://drone.io/github.com/astaxie/beego/status.png)](https://drone.io/github.com/astaxie/beego/latest)
+
+A powerful orm framework for go.
+
+It is heavily influenced by Django ORM, SQLAlchemy.
 
 **Support Database:**
 
 * MySQL: [github.com/go-sql-driver/mysql](https://github.com/go-sql-driver/mysql)
 * PostgreSQL: [github.com/lib/pq](https://github.com/lib/pq)
 * Sqlite3: [github.com/mattn/go-sqlite3](https://github.com/mattn/go-sqlite3)
-* TiDB: [github.com/pingcap/tidb](https://github.com/pingcap/tidb)
+
+Passed all test, but need more feedback.
 
 **Features:**
 
@@ -20,11 +27,14 @@ more features please read the docs
 
 **Install:**
 
-	go get github.com/huawei-openlab/newdb/orm
+	go get github.com/astaxie/beego/orm
 
 ## Changelog
 
-* 2015-11-01: Fork from beego orm develop branch 
+* 2013-08-19: support table auto create
+* 2013-08-13: update test for database types
+* 2013-08-13: go type support, such as int8, uint8, byte, rune
+* 2013-08-13: date / datetime timezone support very well
 
 ## Quick Start
 
@@ -35,7 +45,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/huawei-openlab/newdb/orm"
+	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // import your used driver
 )
 
@@ -137,3 +147,10 @@ like this:
 ```
 
 note: not recommend use this in product env.
+
+## Docs
+
+more details and examples in docs and test
+
+[documents](http://beego.me/docs/mvc/model/overview.md)
+
