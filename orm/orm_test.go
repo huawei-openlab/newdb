@@ -188,7 +188,7 @@ func TestSyncDb(t *testing.T) {
 	RegisterModel(new(Permission))
 	RegisterModel(new(GroupPermissions))
 
-	err := RunSyncdb("default", true, false)
+	err := RunSyncdb("default", true, Debug)
 	throwFail(t, err)
 
 	modelCache.clean()
@@ -663,12 +663,10 @@ The program—and web server—godoc processes Go source files to extract docume
 
 	groups := []*Group{
 		{
-			GID:         "g1",
 			Name:        "admins",
 			Permissions: []*Permission{permissions[0], permissions[1], permissions[2]},
 		},
 		{
-			GID:         "g2",
 			Name:        "users",
 			Permissions: []*Permission{permissions[1], permissions[2]},
 		},
@@ -681,7 +679,7 @@ The program—and web server—godoc processes Go source files to extract docume
 	}
 
 	for _, group := range groups {
-		id, err := dORM.Insert(group)
+		_, err := dORM.Insert(group)
 		throwFail(t, err)
 		throwFail(t, AssertIs(id > 0, true))
 

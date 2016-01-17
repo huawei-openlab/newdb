@@ -25,7 +25,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
-	_ "github.com/pingcap/tidb"
+
+	// As tidb can't use go get, so disable the tidb testing now
+	// _ "github.com/pingcap/tidb"
 )
 
 // A slice string field.
@@ -228,7 +230,7 @@ type User struct {
 	Password     string `orm:"size(100)"`
 	Status       int16  `orm:"column(Status)"`
 	IsStaff      bool
-	IsActive     bool      `orm:"default(1)"`
+	IsActive     bool      `orm:"default(true)"`
 	Created      time.Time `orm:"auto_now_add;type(date)"`
 	Updated      time.Time `orm:"auto_now"`
 	Profile      *Profile  `orm:"null;rel(one);on_delete(set_null)"`
@@ -333,7 +335,7 @@ func NewComment() *Comment {
 }
 
 type Group struct {
-	GID         string `orm:"pk;column(gid);size(32);unique"`
+	ID          int `orm:"column(gid);size(32)"`
 	Name        string
 	Permissions []*Permission `orm:"reverse(many)" json:"-"`
 }
